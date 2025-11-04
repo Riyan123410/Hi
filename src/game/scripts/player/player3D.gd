@@ -18,11 +18,12 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 # ===== Multiplayer =====
 func _enter_tree():
 	set_multiplayer_authority(get_parent().name.to_int())
-	print(get_parent().name)
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	camera.current = is_multiplayer_authority()
+	velocity = Vector3.ZERO
+	self.position = Vector3.ZERO
 
 # ===== Mouse input =====
 func _unhandled_input(event) -> void:
@@ -35,6 +36,7 @@ func _unhandled_input(event) -> void:
 
 # ===== Movement =====
 func _physics_process(delta: float) -> void:
+	
 	if not is_multiplayer_authority():
 		return  # Non-authority peers do not move locally
 
