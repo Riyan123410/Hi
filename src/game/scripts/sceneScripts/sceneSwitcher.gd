@@ -35,3 +35,6 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 
 func transferDataBetweenScenes(oldScene, newScene):
 	newScene.isHost = oldScene.isHost
+	newScene.IPclient = oldScene.IPjoin
+	newScene.portClient = oldScene.portJoin
+	newScene.portHost = oldScene.portHost

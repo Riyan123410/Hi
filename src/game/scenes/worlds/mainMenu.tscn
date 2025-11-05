@@ -2,39 +2,69 @@
 
 [ext_resource type="Script" uid="uid://dbmwdlytuhpeq" path="res://scripts/sceneScripts/mainMenu.gd" id="1_8poju"]
 
-[node name="MainMenu" type="Node2D"]
+[node name="MainMenu" type="Node2D" node_paths=PackedStringArray("textIP", "textPort", "textPortHost")]
 script = ExtResource("1_8poju")
+textIP = NodePath("CanvasLayer/IP")
+textPort = NodePath("CanvasLayer/Port")
+textPortHost = NodePath("CanvasLayer/hostPort")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 script = ExtResource("1_8poju")
 
 [node name="Host" type="Button" parent="CanvasLayer"]
-offset_left = 25.0
-offset_top = 326.0
-offset_right = 755.0
-offset_bottom = 471.0
+anchors_preset = -1
+anchor_left = 0.1467014
+anchor_top = 0.5771605
+anchor_right = 0.6684028
+anchor_bottom = 0.8009259
+grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 8
 text = "Host"
+metadata/_edit_use_anchors_ = true
 
 [node name="Join" type="Button" parent="CanvasLayer"]
-offset_left = 540.0
-offset_top = 507.0
-offset_right = 749.0
-offset_bottom = 583.0
+anchors_preset = -1
+anchor_left = 0.4800347
+anchor_top = 0.82253087
+anchor_right = 0.6649306
+anchor_bottom = 0.9351852
+grow_vertical = 0
+size_flags_vertical = 8
 text = "Join"
+metadata/_edit_use_anchors_ = true
 
-[node name="IP" type="TextEdit" parent="."]
-offset_left = 22.0
-offset_top = 506.0
-offset_right = 355.0
-offset_bottom = 581.0
+[node name="IP" type="TextEdit" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = 0.038194444
+anchor_top = 0.8194444
+anchor_right = 0.32725695
+anchor_bottom = 0.9351852
+size_flags_vertical = 8
+text = "127.0.0.1"
 placeholder_text = "Ip"
+metadata/_edit_use_anchors_ = true
 
-[node name="Port" type="TextEdit" parent="."]
-offset_left = 365.0
-offset_top = 507.0
-offset_right = 515.0
-offset_bottom = 582.0
+[node name="Port" type="TextEdit" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = 0.3359375
+anchor_top = 0.82098764
+anchor_right = 0.4722222
+anchor_bottom = 0.9367284
+size_flags_vertical = 8
+text = "1024"
 placeholder_text = "Port"
+metadata/_edit_use_anchors_ = true
+
+[node name="hostPort" type="TextEdit" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = 0.038194444
+anchor_top = 0.5787037
+anchor_right = 0.1423611
+anchor_bottom = 0.80246913
+text = "1024"
+placeholder_text = "Port"
+metadata/_edit_use_anchors_ = true
 
 [connection signal="pressed" from="CanvasLayer/Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="CanvasLayer/Join" to="." method="_on_join_pressed"]

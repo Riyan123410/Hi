@@ -2,6 +2,9 @@ extends Node3D
 
 var isHost = 0
 var loop = true
+var IPclient = "127.0.0.1"
+var portClient = 1024
+var portHost = 1024
 
 var peer = ENetMultiplayerPeer.new()
 @export var playerScene : PackedScene
@@ -16,13 +19,13 @@ func _process(_delta: float) -> void:
 			loop = false
 
 func runHost():
-	peer.create_server(1024)
+	peer.create_server(portHost)
 	multiplayer.multiplayer_peer = peer
 	multiplayer.peer_connected.connect(addPlayer)
 	addPlayer()
 	
 func runClient():
-	peer.create_client("10.0.0.86", 1024)
+	peer.create_client(IPclient, portClient)
 	multiplayer.multiplayer_peer = peer
 	
 func addPlayer(id = multiplayer.get_unique_id()):
