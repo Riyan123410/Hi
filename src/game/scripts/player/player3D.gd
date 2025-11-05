@@ -10,6 +10,7 @@ extends CharacterBody3D
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 # ===== Camera variables =====
 @export var mouseSensitivity = 0.002 # radians per pixel
+@export var interactTrace : RayCast3D
 
 # ===== Node references =====
 @export var head: Node3D
@@ -20,8 +21,11 @@ func _enter_tree():
 	set_multiplayer_authority(get_parent().name.to_int())
 
 func _ready():
+	self.visible = !is_multiplayer_authority()
+	
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	camera.current = is_multiplayer_authority()
+	
 	velocity = Vector3.ZERO
 	self.position = Vector3.ZERO
 
@@ -31,6 +35,8 @@ func _unhandled_input(event) -> void:
 		rotate_y(-event.relative.x * mouseSensitivity)
 		head.rotate_x(-event.relative.y * mouseSensitivity)
 		head.rotation.x = clampf(head.rotation.x, deg_to_rad(-89.9), deg_to_rad(89.9))
+		print(interactTrace.get_collider())
+		
 	if Input.is_action_just_pressed("toggleCursor"):
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
