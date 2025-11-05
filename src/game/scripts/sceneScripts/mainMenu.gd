@@ -24,3 +24,14 @@ func _on_join_pressed() -> void:
 	portJoin = int(textPort.text)
 	if (IPjoin != "" && portJoin != 0):
 		emit_signal("levelChanged", levelNum)
+		
+func _on_join_lobby_pressed() -> void:
+	$CanvasLayer/joinLobby.visible = false
+	$CanvasLayer/IP.visible = true
+	$CanvasLayer/Join.visible = true
+	$CanvasLayer/Port.visible = true
+	
+func _on_host_lobby_pressed() -> void:
+	$CanvasLayer/hostLobby.visible = false
+	$CanvasLayer/Host.visible = true
+	$CanvasLayer/hostPort.visible = true

@@ -3,7 +3,7 @@ extends CharacterBody3D
 # ===== Movement variables =====
 @export var speed = 5.0
 @export var jumpVelocity = 4.5
-@export var acceleration = 4.0
+@export var acceleration = 7.0
 @export var airAcceleration = 1.0
 @export var friction = 5.0
 @export var airFriction = 0.5
