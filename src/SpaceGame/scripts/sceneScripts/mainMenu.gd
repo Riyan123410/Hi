@@ -4,9 +4,9 @@ signal levelChanged(levelNum)
 
 @export var levelNum = 0
 
-@export var textIP : TextEdit
-@export var textPort : TextEdit
-@export var textPortHost : TextEdit
+@export var textIP : LineEdit
+@export var textPort : LineEdit
+@export var textPortHost : LineEdit
 
 @export var joinlobbyButton : Button
 @export var hostLobbyButton : Button
