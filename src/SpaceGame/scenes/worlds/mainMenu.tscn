@@ -2,11 +2,15 @@
 
 [ext_resource type="Script" uid="uid://dbmwdlytuhpeq" path="res://scripts/sceneScripts/mainMenu.gd" id="1_8poju"]
 
-[node name="MainMenu" type="Node2D" node_paths=PackedStringArray("textIP", "textPort", "textPortHost")]
+[node name="MainMenu" type="Node2D" node_paths=PackedStringArray("textIP", "textPort", "textPortHost", "joinlobbyButton", "hostLobbyButton", "hostButton", "joinButton")]
 script = ExtResource("1_8poju")
 textIP = NodePath("CanvasLayer/IP")
 textPort = NodePath("CanvasLayer/Port")
 textPortHost = NodePath("CanvasLayer/hostPort")
+joinlobbyButton = NodePath("CanvasLayer/joinLobby")
+hostLobbyButton = NodePath("CanvasLayer/hostLobby")
+hostButton = NodePath("CanvasLayer/Host")
+joinButton = NodePath("CanvasLayer/Join")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 script = ExtResource("1_8poju")
@@ -21,7 +25,7 @@ anchor_bottom = 0.8009259
 grow_vertical = 0
 size_flags_horizontal = 0
 size_flags_vertical = 8
-text = "Host"
+text = "Start Game"
 metadata/_edit_use_anchors_ = true
 
 [node name="Join" type="Button" parent="CanvasLayer"]
@@ -33,7 +37,7 @@ anchor_right = 0.6649306
 anchor_bottom = 0.9351852
 grow_vertical = 0
 size_flags_vertical = 8
-text = "Join"
+text = "Join Game"
 metadata/_edit_use_anchors_ = true
 
 [node name="IP" type="TextEdit" parent="CanvasLayer"]
@@ -77,15 +81,17 @@ anchor_left = 0.0390625
 anchor_top = 0.81790125
 anchor_right = 0.6649306
 anchor_bottom = 0.94753087
-text = "Join Lobby"
+text = "Join"
 metadata/_edit_use_anchors_ = true
 
 [node name="hostLobby" type="Button" parent="CanvasLayer"]
-offset_left = 45.0
-offset_top = 368.0
-offset_right = 770.0
-offset_bottom = 525.0
-text = "Host Lobby"
+anchors_preset = -1
+anchor_left = 0.0390625
+anchor_top = 0.56790125
+anchor_right = 0.6684028
+anchor_bottom = 0.8101852
+text = "Host"
+metadata/_edit_use_anchors_ = true
 
 [connection signal="pressed" from="CanvasLayer/Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="CanvasLayer/Join" to="." method="_on_join_pressed"]

@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://dc8u5st0v7cuc"]
+[gd_scene load_steps=8 format=3 uid="uid://dc8u5st0v7cuc"]
 
 [ext_resource type="Script" uid="uid://dl2tp02e3ni50" path="res://scripts/sceneScripts/multiplayerSetup.gd" id="1_sxdjj"]
-[ext_resource type="PackedScene" uid="uid://dlamcauoiqauo" path="res://scenes/player.tscn" id="2_3wcec"]
+[ext_resource type="PackedScene" uid="uid://dlamcauoiqauo" path="res://scenes/player/player.tscn" id="2_3wcec"]
+[ext_resource type="PackedScene" uid="uid://b6irrne6g174s" path="res://scenes/objects/button.tscn" id="3_3wcec"]
+[ext_resource type="Texture2D" uid="uid://1d7eexj3bkmg" path="res://icon.svg" id="4_pah46"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nn8y0"]
 
@@ -20,6 +22,9 @@ playerScene = ExtResource("2_3wcec")
 
 [node name="stage" type="Node3D" parent="."]
 
+[node name="Button" parent="stage" instance=ExtResource("3_3wcec")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3841858e-07, -8.101297, 3.178783)
+
 [node name="CSGBox3D" type="CSGBox3D" parent="stage"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8389187, -8.592035, 6.895336)
 use_collision = true
@@ -37,3 +42,10 @@ environment = SubResource("Environment_0wfyh")
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("uid://dlamcauoiqauo")
 spawn_path = NodePath("..")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer"]
+position = Vector2(576, 324)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("4_pah46")

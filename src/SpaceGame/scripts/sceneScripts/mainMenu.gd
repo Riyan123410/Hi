@@ -3,9 +3,15 @@ extends Node
 signal levelChanged(levelNum)
 
 @export var levelNum = 0
+
 @export var textIP : TextEdit
 @export var textPort : TextEdit
 @export var textPortHost : TextEdit
+
+@export var joinlobbyButton : Button
+@export var hostLobbyButton : Button
+@export var hostButton : Button
+@export var joinButton : Button
 
 var isHost = 0
 var IPjoin = "127.0.0.1"
@@ -26,12 +32,19 @@ func _on_join_pressed() -> void:
 		emit_signal("levelChanged", levelNum)
 		
 func _on_join_lobby_pressed() -> void:
-	$CanvasLayer/joinLobby.visible = false
-	$CanvasLayer/IP.visible = true
-	$CanvasLayer/Join.visible = true
-	$CanvasLayer/Port.visible = true
+	setJoinButtonVisibility(true)
+	setHostButtonVisibility(false)
 	
 func _on_host_lobby_pressed() -> void:
-	$CanvasLayer/hostLobby.visible = false
-	$CanvasLayer/Host.visible = true
-	$CanvasLayer/hostPort.visible = true
+	setHostButtonVisibility(true)
+	setJoinButtonVisibility(false)
+	
+func setJoinButtonVisibility(show):
+	joinlobbyButton.visible = !show
+	textIP.visible = show
+	joinButton.visible = show
+	textPort.visible = show
+func setHostButtonVisibility(show):
+	hostLobbyButton.visible = !show
+	hostButton.visible = show
+	textPortHost.visible = show
