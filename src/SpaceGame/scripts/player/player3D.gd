@@ -44,8 +44,14 @@ func _unhandled_input(event) -> void:
 		head.rotate_x(-event.relative.y * mouseSensitivity)
 		head.rotation.x = clampf(head.rotation.x, deg_to_rad(-89.9), deg_to_rad(89.9))
 		
-	if Input.is_action_just_pressed("toggleCursor"):
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+# ===== Mouse renable debug =====
+	if Input.is_action_just_pressed("toggleCursor"): 
+		if enableMovement:
+			_setMovement(false)
+		else:
+			_setMovement(true)
+	
+
 
 # ===== Movement =====
 func _physics_process(delta: float) -> void:
