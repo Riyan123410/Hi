@@ -46,10 +46,7 @@ func _unhandled_input(event) -> void:
 		
 # ===== Mouse renable debug =====
 	if Input.is_action_just_pressed("toggleCursor"): 
-		if enableMovement:
-			_setMovement(false)
-		else:
-			_setMovement(true)
+		_setMovement(!enableMovement)
 	
 
 
