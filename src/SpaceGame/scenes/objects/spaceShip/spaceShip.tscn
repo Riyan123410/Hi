@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://dvymktxc782ww"]
+
+[ext_resource type="Script" uid="uid://bl0y5t31n1ify" path="res://scripts/sceneScripts/spaceShip.gd" id="1_aoyv4"]
+[ext_resource type="PackedScene" uid="uid://bh5hhggtnwuwr" path="res://scenes/objects/spaceShip/shipSteeringWheel.tscn" id="2_mo5ks"]
+[ext_resource type="PackedScene" uid="uid://cf02ynqvcm2w1" path="res://scenes/objects/spaceShip/spaceShipSpeed.tscn" id="3_4ijwy"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ah5ld"]
+height = 0.2016449
+radius = 2.925293
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mo5ks"]
+albedo_color = Color(0.36078432, 0.3764706, 0.42352942, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ad726"]
+material = SubResource("StandardMaterial3D_mo5ks")
+
+[node name="SpaceShip" type="Node3D" node_paths=PackedStringArray("steering", "shipSpeed")]
+script = ExtResource("1_aoyv4")
+steering = NodePath("ShipSteeringWheel")
+shipSpeed = NodePath("SpaceShipSpeed")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.019630432, 0)
+shape = SubResource("CylinderShape3D_ah5ld")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(5.8510747, 0, 0, 0, 0.11287165, 0, 0, 0, 5.8510747, 0, 0, 0)
+mesh = SubResource("CylinderMesh_ad726")
+skeleton = NodePath("../StaticBody3D")
+
+[node name="ShipSteeringWheel" parent="." instance=ExtResource("2_mo5ks")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05885899, 0.1475904, -2.3087325)
+
+[node name="SpaceShipSpeed" parent="." instance=ExtResource("3_4ijwy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.044942, 0.11053276, -1.89296)

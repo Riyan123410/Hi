@@ -4,7 +4,7 @@ extends interactable
 var sceneSwitcher = Node
 
 func _ready() -> void:
-	sceneSwitcher = get_parent().get_parent().get_parent()
+	sceneSwitcher = $"/root/sceneSwitcher"
 
 func interactAction(player):
 	var gameSetupWindowInstance = gameSetupWindow.instantiate()

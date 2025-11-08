@@ -6,11 +6,11 @@
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_ufqlp"]
 height = 0.6799927
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u77kr"]
-albedo_color = Color(1, 0.32941177, 1, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2wxwk"]
+albedo_color = Color(1, 0, 0.2, 1)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_u77kr"]
-material = SubResource("StandardMaterial3D_u77kr")
+material = SubResource("StandardMaterial3D_2wxwk")
 
 [node name="Button" type="Node3D"]
 script = ExtResource("1_ufqlp")
@@ -25,5 +25,3 @@ shape = SubResource("CylinderShape3D_ufqlp")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.34792265, 0, 0, 0, 1, 0, 0.31071687, 0)
 mesh = SubResource("CylinderMesh_u77kr")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]

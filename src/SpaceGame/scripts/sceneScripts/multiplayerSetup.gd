@@ -8,6 +8,7 @@ var portHost = 1024
 
 var peer = ENetMultiplayerPeer.new()
 @export var playerScene : PackedScene
+@export var spaceShip : Node3D
 
 func _process(_delta: float) -> void:
 	if loop:
@@ -31,7 +32,7 @@ func runClient():
 func addPlayer(id = multiplayer.get_unique_id()):
 	var player = playerScene.instantiate()
 	player.name = str(id)
-	call_deferred("add_child", player)
+	spaceShip.call_deferred("add_child", player)
 	
 func deletePlayer(id):
 	rpc("_deletePlayer", id)

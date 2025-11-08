@@ -35,7 +35,7 @@ func _ready():
 	camera.current = is_multiplayer_authority()
 	
 	velocity = Vector3.ZERO
-	self.position = Vector3(0, 0, 0)
+	self.position = Vector3(0, 10, 0)
 
 # ===== Mouse input =====
 func _unhandled_input(event) -> void:
@@ -43,19 +43,15 @@ func _unhandled_input(event) -> void:
 		rotate_y(-event.relative.x * mouseSensitivity)
 		head.rotate_x(-event.relative.y * mouseSensitivity)
 		head.rotation.x = clampf(head.rotation.x, deg_to_rad(-89.9), deg_to_rad(89.9))
-		
-# ===== Mouse renable debug =====
-	if Input.is_action_just_pressed("toggleCursor"): 
-		_setMovement(!enableMovement)
-	
-
 
 # ===== Movement =====
 func _physics_process(delta: float) -> void:
+	if Input.is_action_just_pressed("pause"): 
+		_setMovement(!enableMovement)
 	
-	if not is_multiplayer_authority() or not enableMovement:
-		return  # Non-authority peers do not move locally
-
+	if !is_multiplayer_authority() or !enableMovement:
+		return
+		
 	# Gravity
 	if not is_on_floor():
 		velocity.y -= gravity * delta
@@ -64,20 +60,28 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = jumpVelocity
 
-	# Movement
+	# Get input vector
 	var input_dir = Input.get_vector("left", "right", "forward", "backward")
-	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	# Convert input into a world space direction using the global transform
+	var direction = Vector3(input_dir.x, 0, input_dir.y)
 
+	# Rotate input direction by the player's global facing (including parent)
+	direction = global_transform.basis * direction
+	direction.y = 0  # Keep movement horizontal
+	direction = direction.normalized() if direction.length() > 0 else Vector3.ZERO
+
+	# Movement variables
 	var currentAcceleration = acceleration if is_on_floor() else airAcceleration
 	var currentFriction = friction if is_on_floor() else airFriction
 
+	# Apply acceleration/friction
 	if direction != Vector3.ZERO:
 		velocity.x = move_toward(velocity.x, direction.x * speed, currentAcceleration * delta)
 		velocity.z = move_toward(velocity.z, direction.z * speed, currentAcceleration * delta)
 	else:
 		velocity.x = move_toward(velocity.x, 0, currentFriction * delta)
 		velocity.z = move_toward(velocity.z, 0, currentFriction * delta)
-		
+
 	move_and_slide()
 
 # ===== Interaction =====
