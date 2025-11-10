@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://dc8u5st0v7cuc"]
+[gd_scene load_steps=10 format=3 uid="uid://dc8u5st0v7cuc"]
 
 [ext_resource type="Script" uid="uid://dl2tp02e3ni50" path="res://scripts/sceneScripts/multiplayerSetup.gd" id="1_sxdjj"]
 [ext_resource type="PackedScene" uid="uid://dlamcauoiqauo" path="res://scenes/player/player.tscn" id="2_3wcec"]
 [ext_resource type="PackedScene" uid="uid://b6irrne6g174s" path="res://scenes/objects/button.tscn" id="3_3wcec"]
 [ext_resource type="PackedScene" uid="uid://dvymktxc782ww" path="res://scenes/objects/spaceShip/spaceShip.tscn" id="4_d4ef8"]
 [ext_resource type="Texture2D" uid="uid://1d7eexj3bkmg" path="res://icon.svg" id="4_pah46"]
+[ext_resource type="Script" uid="uid://d14hi38r3kvkl" path="res://scripts/obstacles/asteroidSpawner.gd" id="6_a0dhw"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nn8y0"]
 
@@ -24,24 +25,17 @@ spaceShip = NodePath("stage/SpaceShip")
 
 [node name="stage" type="Node3D" parent="."]
 
-[node name="Button" parent="stage" instance=ExtResource("3_3wcec")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.839715, -7.8236556, 3.178783)
-
-[node name="CSGBox3D" type="CSGBox3D" parent="stage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.704916, -8.592035, 1.6402245)
-use_collision = true
-size = Vector3(34.300354, 1, 39.535004)
-
 [node name="SpaceShip" parent="stage" instance=ExtResource("4_d4ef8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.7717953, -7.9577327, 2.9730215)
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="stage/SpaceShip"]
 _spawnable_scenes = PackedStringArray("uid://dlamcauoiqauo")
 spawn_path = NodePath("..")
 
-[node name="Sprite3D" type="Sprite3D" parent="stage"]
-transform = Transform3D(25.302582, 0, 0, 0, 0, 1.0000001, 0, 28.448067, 0, 1.5833242, -8.080357, 2.5903287)
-texture = ExtResource("4_pah46")
+[node name="Button" parent="stage/SpaceShip" instance=ExtResource("3_3wcec")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.06791973, 0.13407707, 0.20576143)
+
+[node name="asteroidSpawner" type="Node3D" parent="stage"]
+script = ExtResource("6_a0dhw")
 
 [node name="envrionment" type="Node3D" parent="."]
 

@@ -39,12 +39,12 @@ func _on_host_lobby_pressed() -> void:
 	setHostButtonVisibility(true)
 	setJoinButtonVisibility(false)
 	
-func setJoinButtonVisibility(show):
+func setJoinButtonVisibility(show : bool):
 	joinlobbyButton.visible = !show
 	textIP.visible = show
 	joinButton.visible = show
 	textPort.visible = show
-func setHostButtonVisibility(show):
+func setHostButtonVisibility(show : bool):
 	hostLobbyButton.visible = !show
 	hostButton.visible = show
 	textPortHost.visible = show

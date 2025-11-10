@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
 # ===== Movement variables =====
-@export var speed = 5.0
+@export var speed = 2.0
 @export var jumpVelocity = 4.5
 @export var acceleration = 4.0
 @export var airAcceleration = 1.0
@@ -28,14 +28,16 @@ func _enter_tree():
 
 func _ready():
 	sendStartSignal = $"/root/sceneSwitcher/startGameSignal"
-	sendStartSignal.connect("startGame", Callable(self, "_setMovement").bind(true))
+	sendStartSignal.connect("startGame", Callable(self, "_setPause").bind(true))
 	self.visible = !is_multiplayer_authority()
 	
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	camera.current = is_multiplayer_authority()
 	
-	velocity = Vector3.ZERO
-	self.position = Vector3(0, 10, 0)
+	if is_multiplayer_authority():
+		self.position = Vector3(0, 10, 0)
+		velocity = Vector3.ZERO
+		
 
 # ===== Mouse input =====
 func _unhandled_input(event) -> void:
@@ -46,10 +48,14 @@ func _unhandled_input(event) -> void:
 
 # ===== Movement =====
 func _physics_process(delta: float) -> void:
-	if Input.is_action_just_pressed("pause"): 
-		_setMovement(!enableMovement)
+	if Input.is_action_just_pressed("pause"):
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	
-	if !is_multiplayer_authority() or !enableMovement:
+	if !is_multiplayer_authority():
+		return
+	if !enableMovement:
+		velocity = Vector3.ZERO
+		move_and_slide()
 		return
 		
 	# Gravity
@@ -86,6 +92,9 @@ func _physics_process(delta: float) -> void:
 
 # ===== Interaction =====
 func _process(_delta: float) -> void:
+	if !is_multiplayer_authority():
+		return
+	
 	if Input.is_action_just_pressed("interact"):
 		lookAt = interactTrace.get_collider()
 		if lookAt != null:
@@ -94,8 +103,8 @@ func _process(_delta: float) -> void:
 				lookAt.interactAction(self)
 
 # ===== Enable/Disable Movement =====
-func _setMovement(setMovement):
-	if (setMovement):
+func _setPause(setPause : bool):
+	if (setPause):
 		enableMovement = true
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	else:

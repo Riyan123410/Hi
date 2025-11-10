@@ -1,10 +1,11 @@
 extends interactable
 
-var isSteering = false
-
-func interactAction(player):
-	isSteering = !isSteering
-	if isSteering:
-		player._setMovement(false)
-	else:
-		player._setMovement(true)
+func interactAction(_player : CharacterBody3D):
+	if !usingControl:
+		_player.enableMovement = false
+		usingControlLocal = true
+		rpc("RPCusingControlTrue")
+	elif usingControlLocal:
+		_player.enableMovement = true
+		usingControlLocal = false
+		rpc("RPCusingControlFalse")

@@ -6,10 +6,10 @@ var sceneSwitcher = Node
 func _ready() -> void:
 	sceneSwitcher = $"/root/sceneSwitcher"
 
-func interactAction(player):
+func interactAction(player : CharacterBody3D):
 	var gameSetupWindowInstance = gameSetupWindow.instantiate()
 	sceneSwitcher.add_child(gameSetupWindowInstance)
-	player._setMovement(false)
+	player._setPause(false)
 	rpc("RPCdelete")
 
 @rpc("any_peer", "call_local")
